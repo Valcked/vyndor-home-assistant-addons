@@ -20,7 +20,7 @@ hassio_role: admin
 host_network: false
 
 options:
-  api_url: "https://api-production-37bc.up.railway.app"
+  api_url: "https://falconserver.ddns.net/vyndor-api"
   installation_id: ""
   installation_token: ""
   release_channel: "stable"
