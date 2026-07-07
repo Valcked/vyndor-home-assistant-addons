@@ -1,0 +1,86 @@
+name: "Vyndor Agent"
+version: "0.1.0"
+slug: "vyndor_agent"
+description: "Secure Vyndor Control agent for Home Assistant monitoring, diagnostics, inventory sync, backups and update orchestration."
+url: "https://github.com/Valcked/vyndor-home-assistant-addons"
+image: "ghcr.io/valcked/vyndor-agent"
+
+arch:
+  - amd64
+  - aarch64
+  - armv7
+
+startup: services
+boot: auto
+init: false
+
+hassio_api: true
+homeassistant_api: true
+hassio_role: admin
+host_network: false
+
+options:
+  api_url: "https://api-production-37bc.up.railway.app"
+  installation_id: ""
+  installation_token: ""
+  release_channel: "stable"
+
+  intervals:
+    heartbeat_seconds: 30
+    command_poll_seconds: 60
+    health_checkin_seconds: 300
+    update_discovery_seconds: 900
+    inventory_full_sync_seconds: 21600
+    log_flush_seconds: 60
+    backup_status_check_seconds: 3600
+    self_update_check_seconds: 86400
+
+  limits:
+    max_real_updates_per_hour: 1
+    max_commands_per_poll: 3
+    max_event_batch_size: 50
+    command_timeout_seconds: 900
+
+  remote_access:
+    watchdog_enabled: true
+    self_healing_enabled: false
+    public_url_override: ""
+    cloudflared_addon_slug: ""
+    dns_host: "api.cloudflare.com"
+    external_timeout_seconds: 12
+    dns_restart_cooldown_seconds: 900
+    supervisor_restart_cooldown_seconds: 1800
+    cloudflared_restart_cooldown_seconds: 900
+
+schema:
+  api_url: url
+  installation_id: str
+  installation_token: password
+  release_channel: list(stable|beta|dev)
+
+  intervals:
+    heartbeat_seconds: int(10,3600)
+    command_poll_seconds: int(10,3600)
+    health_checkin_seconds: int(60,86400)
+    update_discovery_seconds: int(300,86400)
+    inventory_full_sync_seconds: int(3600,604800)
+    log_flush_seconds: int(10,3600)
+    backup_status_check_seconds: int(300,86400)
+    self_update_check_seconds: int(3600,604800)
+
+  limits:
+    max_real_updates_per_hour: int(0,10)
+    max_commands_per_poll: int(1,20)
+    max_event_batch_size: int(1,500)
+    command_timeout_seconds: int(60,86400)
+
+  remote_access:
+    watchdog_enabled: bool
+    self_healing_enabled: bool
+    public_url_override: str
+    cloudflared_addon_slug: str
+    dns_host: str
+    external_timeout_seconds: int(3,60)
+    dns_restart_cooldown_seconds: int(60,86400)
+    supervisor_restart_cooldown_seconds: int(60,86400)
+    cloudflared_restart_cooldown_seconds: int(60,86400)

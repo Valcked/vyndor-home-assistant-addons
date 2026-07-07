@@ -1,0 +1,8 @@
+﻿.env
+*.env
+*.secret
+secrets/
+tokens/
+.DS_Store
+Thumbs.db
+.vscode/
