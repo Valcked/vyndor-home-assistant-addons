@@ -1,5 +1,5 @@
 name: "Vyndor Agent"
-version: "0.1.3"
+version: "0.1.4"
 slug: "vyndor_agent"
 description: "Secure Vyndor Control agent for Home Assistant monitoring, diagnostics, inventory sync, backups and update orchestration."
 url: "https://github.com/Valcked/vyndor-home-assistant-addons"
@@ -24,6 +24,9 @@ options:
   installation_id: ""
   installation_token: ""
   release_channel: "stable"
+
+  agent_trust:
+    recovery_code: ""
 
   intervals:
     heartbeat_seconds: 30
@@ -57,6 +60,9 @@ schema:
   installation_id: str
   installation_token: password
   release_channel: list(stable|beta|dev)
+
+  agent_trust:
+    recovery_code: password
 
   intervals:
     heartbeat_seconds: int(10,3600)
