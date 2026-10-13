@@ -1,5 +1,5 @@
 name: "Vyndor Home"
-version: "0.1.1"
+version: "0.1.2"
 slug: "vyndor_home"
 description: "Local Vyndor Smart Living runtime, dashboard, Home Assistant integration and secure Display access."
 url: "https://github.com/Valcked/vyndor-home-assistant-addons"
