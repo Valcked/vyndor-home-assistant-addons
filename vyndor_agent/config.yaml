@@ -1,5 +1,5 @@
 name: "Vyndor Agent"
-version: "0.1.4"
+version: "0.1.5"
 slug: "vyndor_agent"
 description: "Secure Vyndor Control agent for Home Assistant monitoring, diagnostics, inventory sync, backups and update orchestration."
 url: "https://github.com/Valcked/vyndor-home-assistant-addons"
@@ -8,7 +8,6 @@ image: "ghcr.io/valcked/vyndor-agent"
 arch:
   - amd64
   - aarch64
-  - armv7
 
 startup: services
 boot: auto
