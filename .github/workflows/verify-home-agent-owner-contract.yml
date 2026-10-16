@@ -1,0 +1,80 @@
+name: Verify Home Agent OWNER Contract
+
+on:
+  pull_request:
+    paths:
+      - 'tools/verify_home_agent_owner_contract.py'
+      - 'docs/release-compatibility.md'
+      - '.github/workflows/verify-home-agent-owner-contract.yml'
+  push:
+    paths:
+      - 'tools/verify_home_agent_owner_contract.py'
+      - 'docs/release-compatibility.md'
+      - '.github/workflows/verify-home-agent-owner-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-owner-contract:
+    name: Home-Agent OWNER Contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout catalog
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Checkout Home
+        uses: actions/checkout@v4
+        with:
+          repository: Valcked/vyndor-home
+          ref: 38cab59ed0db881aa020eabd5182bde3b66cfb43
+          path: _contract_home
+          token: ${{ secrets.VYNDOR_CROSS_REPO_READ_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Checkout Agent
+        uses: actions/checkout@v4
+        with:
+          repository: Valcked/vyndor-agent
+          ref: e176e5d7f2f1a500d3778fbdb6842cd9689db16b
+          path: _contract_agent
+          token: ${{ secrets.VYNDOR_CROSS_REPO_READ_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Home dependencies
+        run: npm ci --prefix _contract_home
+
+      - name: Install Agent dependencies
+        run: |
+          python -m pip install \
+            -r _contract_agent/vyndor_agent/requirements.txt
+
+      - name: Verify Home-Agent OWNER contract
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python tools/verify_home_agent_owner_contract.py \
+            "$GITHUB_WORKSPACE/_contract_home" \
+            "$GITHUB_WORKSPACE/_contract_agent" \
+            "$GITHUB_WORKSPACE/_contract_home/node_modules/.bin/tsx"
+
+      - name: Verify release contract
+        run: |
+          python -B -m unittest discover \
+            -s tests \
+            -p 'test_release_*.py'
