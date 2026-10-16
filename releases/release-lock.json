@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "releases": {
+    "vyndor_agent": {
+      "0.1.5": {
+        "image": "ghcr.io/valcked/vyndor-agent",
+        "digest": "sha256:43a08458161b3a7317155335af1ed35426388418cd7dc74307f7682a5bd91cda",
+        "platforms": {
+          "linux/amd64": "sha256:446acb7e2931121c1722203364950cb4fc100af4a33b0f1b80b8fcdbd908f1c1",
+          "linux/arm64": "sha256:30f1115c912b675d227b4510e92a9725fab2d615b60f5469200e01ce0c881c9c"
+        }
+      }
+    },
+    "vyndor_home": {
+      "0.1.2": {
+        "image": "ghcr.io/valcked/vyndor-home",
+        "digest": "sha256:3d5b26d39127ec203283e2d9ca403ba39d927daf119e78d5b83bd7b7589e99f3",
+        "platforms": {
+          "linux/amd64": "sha256:93984b77238cd325afe5f3e3237ffe53cef7b5dde955efccf41b69f43f0e5116"
+        }
+      }
+    }
+  }
+}
