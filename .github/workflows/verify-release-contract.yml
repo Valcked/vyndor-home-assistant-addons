@@ -1,0 +1,50 @@
+name: Verify Vyndor Release Contract
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify locked release artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Run release contract regression tests
+        run: |
+          python3 -m unittest discover \
+            -s tests \
+            -p 'test_release_*.py' \
+            -v
+
+      - name: Verify release contract against GHCR
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || '' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "$BASE_SHA" && ! "$BASE_SHA" =~ ^0+$ ]]; then
+            python3 tools/verify_release_contract.py \
+              --base-ref "$BASE_SHA"
+          else
+            python3 tools/verify_release_contract.py
+          fi
