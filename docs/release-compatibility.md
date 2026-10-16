@@ -83,3 +83,34 @@ integration evidence is available.
 
 No additional update-blocking mechanism is required
 by this compatibility documentation.
+
+## Cross-repository OWNER approval evidence
+
+Test date: 2026-10-16
+
+Home source commit: `38cab59ed0db881aa020eabd5182bde3b66cfb43`
+
+Agent source commit: `e176e5d7f2f1a500d3778fbdb6842cd9689db16b`
+
+Result: PASS (5 checks)
+
+The current featurebranch implementations were
+tested against each other using their real
+TypeScript and Python protocol payload builders.
+
+Successful checks:
+- Identical OWNER approval START payloads.
+- Identical OWNER approval CHALLENGE payloads.
+- Invalid nonce rejected by both implementations.
+- Node.js Ed25519 signature verified in Python.
+- Modified claim rejected by signature verification.
+
+Limitations:
+- The test used temporary cryptographic keys.
+- The Agent coordinator was not exercised end-to-end.
+- No HTTP communication or Control persistence was tested.
+- N-1/N/N+1 release combinations remain unverified.
+- This was a temporary manual test, not yet a CI gate.
+
+Therefore, this evidence does not establish full
+runtime or published-release compatibility.
