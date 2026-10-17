@@ -114,3 +114,39 @@ Limitations:
 
 Therefore, this evidence does not establish full
 runtime or published-release compatibility.
+
+## Integrated OWNER confirmation evidence
+
+Test date: 2026-10-18
+
+Source commits:
+- Control: `386df74ee4f6ff09495b7c2bbf2f5a1a09846170`
+- Home: `38cab59ed0db881aa020eabd5182bde3b66cfb43`
+- Agent: `e176e5d7f2f1a500d3778fbdb6842cd9689db16b`
+
+Result: PASS
+
+A disposable local integration environment was used.
+
+Verified:
+- Agent identity VERIFIED.
+- Home identity VERIFIED.
+- Home account authenticated.
+- OWNER claim created through Control.
+- Claim redeemed by the Home account.
+- Real Home TypeScript protocol signing accepted by Agent.
+- Real Agent coordinator confirmed the claim through Control.
+- Replayed FINISH rejected.
+- Duplicate Control confirmation rejected.
+- PostgreSQL contained exactly one OWNER membership.
+
+Limitations:
+- This was a one-time local integration run.
+- Physical Home approval UI was not exercised.
+- Display was not part of this test.
+- N-1/N/N+1 upgrades remain unverified.
+- Control used an uncommitted localhost bind-host adjustment.
+- No production deployment was tested.
+
+No credentials, private keys or account identifiers
+are included in this evidence.
